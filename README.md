@@ -1,10 +1,5 @@
 <<<<<<< HEAD
 # HIREHUB_BE
-=======
-# HIRENHUB_BE
->>>>>>> 79befeb428f5e2af8515bd42d192ba29d4713a41
-
-
 
 ## Getting started
 
