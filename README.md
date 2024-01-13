@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # HIREHUB_BE
 
 ## Getting started
