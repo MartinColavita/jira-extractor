@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # HIREHUB_BE
+=======
+# HIRENHUB_BE
+>>>>>>> 79befeb428f5e2af8515bd42d192ba29d4713a41
 
 
 
@@ -15,14 +19,22 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
+<<<<<<< HEAD
 git remote add origin https://gitlab.eldars.com.ar/software-factory/eldar/candidatos/hirehub_be.git
+=======
+git remote add origin https://gitlab.eldars.com.ar/software-factory/eldar/business/candidatos/hirenhub_be.git
+>>>>>>> 79befeb428f5e2af8515bd42d192ba29d4713a41
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
+<<<<<<< HEAD
 - [ ] [Set up project integrations](https://gitlab.eldars.com.ar/software-factory/eldar/candidatos/hirehub_be/-/settings/integrations)
+=======
+- [ ] [Set up project integrations](https://gitlab.eldars.com.ar/software-factory/eldar/business/candidatos/hirenhub_be/-/settings/integrations)
+>>>>>>> 79befeb428f5e2af8515bd42d192ba29d4713a41
 
 ## Collaborate with your team
 
