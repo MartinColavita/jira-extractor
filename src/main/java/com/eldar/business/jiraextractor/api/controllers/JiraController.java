@@ -25,11 +25,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/linkedin")
+@RequestMapping("/jiraextractor")
 @SecurityRequirement(name = "Bearer Authentication")
 @Slf4j
 @RequiredArgsConstructor
-@Tag(name = "ELDAR - Linkedin")
+@Tag(name = "ELDAR - Jira Extractor")
 public class JiraController extends SwaggerResponseCode {
 
     private final JiraService jiraService;
@@ -39,8 +39,8 @@ public class JiraController extends SwaggerResponseCode {
      */
     @GetMapping("/get_mock")
     @Operation(description = "Prototipo GET Mock.", summary = "PONGA LOS DTO'S que CORRESPONDEN en sus metodos")
-    public ResponseEntity<Object> get_mock_Linkedin() {
-        Object responseBody = jiraService.getLinkedin();
+    public ResponseEntity<Object> get_mock_Jira() {
+        Object responseBody = jiraService.getJira();
         return ResponseEntity.ok()
                 .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
                 .header("Mensaje-del-servidor", "Esto es un Mockup hasta poder consultar el Servicio REAL.")  

@@ -16,7 +16,7 @@ public class JiraServiceImpl implements JiraService {
     private static final String JSON_FILE_PATH = "mockups/Linkedin_mock.json";
 
     @Override
-    public String getLinkedin() {
+    public String getJira() {
         try {
             // Lee el contenido del archivo JSON desde el classpath
             ClassPathResource resource = new ClassPathResource(JSON_FILE_PATH);
