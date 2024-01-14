@@ -46,6 +46,7 @@ public class SecurityConfig {
                     .requestMatchers("/users/create/**").permitAll()
                     .requestMatchers("/auth/login/**").permitAll()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .requestMatchers("/actuator/**").permitAll() // Permitir acceso a Actuator sin autenticación
                     .anyRequest().authenticated()
 
                 )
