@@ -21,7 +21,7 @@ public class SwaggerConfig {
     public GroupedOpenApi openApi() {
         return GroupedOpenApi.builder()
                 .group("Eldar")
-                .packagesToScan("com.eldar.managerdata")
+                .packagesToScan("com.eldar.business.hirenhub")
                 .build();
     }
 
