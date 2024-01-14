@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+    <springProperty scope="context" name="microName" source="spring.application.name" defaultValue="not specified"/>
+    <springProperty scope="context" name="serverPort" source="server.port" defaultValue="not specified"/>
+
+
+    <!-- Archivo de logs local -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/logs/jiraextractor.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>logs/jiraextractor.%i.log.zip</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n%mdc%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Logstash -->
+    <appender name="LOGSTASH"
+              class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>192.168.1.151:5044</destination>
+        <reconnectionDelay>5 second</reconnectionDelay>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeMdcKeyName>requestUri</includeMdcKeyName>
+            <includeMdcKeyName>responseCode</includeMdcKeyName>
+            <includeMdcKeyName>timetaken</includeMdcKeyName>
+            <includeMdcKeyName>httpMethod</includeMdcKeyName>
+            <includeMdcKeyName>queryString</includeMdcKeyName>
+            <includeMdcKeyName>remoteAddress</includeMdcKeyName>
+            <includeMdcKeyName>sec_ch_ua</includeMdcKeyName>
+            <includeMdcKeyName>user_Agent</includeMdcKeyName>
+            <includeMdcKeyName>sec_ch_ua_platform</includeMdcKeyName>
+            <includeMdcKeyName>sec_ch_ua_mobile</includeMdcKeyName>
+            <includeMdcKeyName>host</includeMdcKeyName>
+            <includeMdcKeyName>authorization</includeMdcKeyName>
+            <includeMdcKeyName>responseCode</includeMdcKeyName>
+            <includeMdcKeyName>headersNames</includeMdcKeyName>
+            <includeMdcKeyName>content_Type</includeMdcKeyName>
+        </encoder>
+    </appender>
+
+    <!-- Consola -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n%mdc%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Async Consola -->
+    <appender name="STDOUT_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>500</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <neverBlock>false</neverBlock>
+        <appender-ref ref="STDOUT" />
+    </appender>
+
+    <!-- Async Logstash -->
+    <appender name="LOGSTASH_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>500</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <neverBlock>false</neverBlock>
+        <appender-ref ref="LOGSTASH" />
+    </appender>
+
+    <!-- Logger raíz -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT_ASYNC" />
+        <appender-ref ref="LOGSTASH_ASYNC" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
