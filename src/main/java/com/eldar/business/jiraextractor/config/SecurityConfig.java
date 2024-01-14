@@ -42,11 +42,12 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/swagger-ui/**", "/.well-known/**, ", "/v3/api-docs/**").permitAll()
-                    .requestMatchers("/users/create/**").permitAll()
-                    .requestMatchers("/auth/login/**").permitAll()
-                    .requestMatchers("/admin/**").hasRole("ADMIN")
-                    .anyRequest().authenticated()
+                        .requestMatchers("/swagger-ui/**", "/.well-known/**, ", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/users/create/**").permitAll()
+                        .requestMatchers("/auth/login/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/actuator/**").permitAll() // Permitir acceso a Actuator sin autenticación
+                        .anyRequest().authenticated()
 
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
