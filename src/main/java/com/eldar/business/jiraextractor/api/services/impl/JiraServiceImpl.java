@@ -1,42 +1,107 @@
 package com.eldar.business.jiraextractor.api.services.impl;
 
+import com.eldar.business.jiraextractor.api.exceptions.customs.BadRequestException;
+import com.eldar.business.jiraextractor.api.models.response.*;
 import com.eldar.business.jiraextractor.api.services.contracts.JiraService;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.core.io.ClassPathResource;
+import com.eldar.business.jiraextractor.config.RestTemplateConfig;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.Base64;
 
+
+@Slf4j
+@RequiredArgsConstructor
 @Service
 public class JiraServiceImpl implements JiraService {
 
-    private static final String JSON_FILE_PATH = "mockups/Linkedin_mock.json";
+    private final RestTemplateConfig restTemplateConfig;
 
-    @Override
-    public String getJira() {
+    @Value("${jira.url}")
+    private String jiraUrl;
+
+    @Value("${jira.username}")
+    private String jiraUsername;
+
+    @Value("${jira.token}")
+    private String jiraToken;
+
+
+
+/** Creates and returns the headers required for authentication in Jira. */
+    private HttpHeaders createHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Basic " + Base64.getEncoder().encodeToString((jiraUsername + ":" + jiraToken).getBytes()));
+        log.info("----> headers: {}", headers);
+        return headers;
+    }
+
+
+/** Performs a GET request to the Jira API with the provided URL and specified response type.
+     * @param apiUrl       The URL of the Jira API for the GET request.
+     * @param responseType The expected response type.
+     * @throws BadRequestException If the response is not successful (status code other than 2xx). */
+    private <T> T performGetRequest(String apiUrl, Class<T> responseType) {
         try {
-            // Lee el contenido del archivo JSON desde el classpath
-            ClassPathResource resource = new ClassPathResource(JSON_FILE_PATH);
-            InputStream inputStream = resource.getInputStream();
-            byte[] bytes = new byte[inputStream.available()];
-            inputStream.read(bytes);
-            String jsonFromFile = new String(bytes);
-
-            // Convierte el JSON a un objeto Java (JsonNode en este caso)
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonObject = objectMapper.readTree(jsonFromFile);
-            String loginStatus = jsonObject.at("/Accounts/LoginStatus").asText();
-
-            // Devuelve el JSON o los datos específicos según sea necesario
-            return jsonObject.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Maneja la excepción según tus necesidades
-            return "Error al leer el archivo JSON";
+            log.info("----> apiUrl: {}", apiUrl);
+            ResponseEntity<T> response = restTemplateConfig.restTemplate().exchange(apiUrl, HttpMethod.GET, new org.springframework.http.HttpEntity<>(createHeaders()), responseType);
+            log.info("----> response: {}", response);
+            if (!response.getStatusCode().is2xxSuccessful()) {
+                log.info("----> Error response: {}", response.getStatusCode());
+                throw new BadRequestException("Error making request to Jira".split(","));
+            }
+            return response.getBody();
+        } catch (BadRequestException e) {
+            log.error("Error making request to Jira", e);
+            throw e;
         }
     }
+
+
+/** Get Board by id */
+    @Override
+    public BoardDTO getBoard(Long boardId) {
+        String apiUrl = jiraUrl + "/rest/agile/1.0/board/" + boardId;
+        return performGetRequest(apiUrl, BoardDTO.class);
+    }
+
+
+/** Get board by filter id */
+    @Override
+    public BoardFilterDTO getBoardByFilter(Long filterId) {
+        String apiUrl = jiraUrl + "/rest/agile/1.0/board/filter/" + filterId;
+        return performGetRequest(apiUrl, BoardFilterDTO.class);
+    }
+
+
+/** Get all boards. */
+    @Override
+    public BoardsDTO getAllBoards() {
+        String apiUrl = jiraUrl + "/rest/agile/1.0/board";
+        return performGetRequest(apiUrl, BoardsDTO.class);
+    }
+
+
+/** Get issues for backlog */
+    @Override
+    public BacklogDTO getIssuesForBacklog(Long boardId) {
+        String apiUrl = jiraUrl + "/rest/agile/1.0/board/" + boardId + "/backlog";
+        return performGetRequest(apiUrl, BacklogDTO.class);
+    }
+
+
+/** Get epics */
+    @Override
+    public EpicsDTO getEpics(Long boardId) {
+        String apiUrl = jiraUrl + "/rest/agile/1.0/board/" + boardId + "/epic";
+        return performGetRequest(apiUrl, EpicsDTO.class);
+    }
+
+
 
 }

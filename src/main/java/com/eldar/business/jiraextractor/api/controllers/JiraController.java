@@ -1,28 +1,19 @@
 package com.eldar.business.jiraextractor.api.controllers;
 
+
+import com.eldar.business.jiraextractor.api.models.response.*;
 import com.eldar.business.jiraextractor.api.services.contracts.JiraService;
-import com.eldar.business.jiraextractor.api.models.mock.UserDataDTO;
 import com.eldar.business.jiraextractor.utils.swaggerconf.SwaggerResponseCode;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.http.ResponseEntity;
-
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/jiraextractor")
@@ -34,55 +25,65 @@ public class JiraController extends SwaggerResponseCode {
 
     private final JiraService jiraService;
 
-    /**
-     * Start Prototipo: Adaptale a su necesidad
-     */
-    @GetMapping("/get_mock")
-    @Operation(description = "Prototipo GET Mock.", summary = "PONGA LOS DTO'S que CORRESPONDEN en sus metodos")
-    public ResponseEntity<Object> get_mock_Jira() {
-        Object responseBody = jiraService.getJira();
-        return ResponseEntity.ok()
-                .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
-                .header("Mensaje-del-servidor", "Esto es un Mockup hasta poder consultar el Servicio REAL.")  
-                .body(responseBody);
+
+
+    /** Get Board by id
+     * This board will only be returned if the user has permission to view it. */
+    @GetMapping("/get-board/{boardId}")
+    @Operation(description = "Get specific board", summary = "Get specific board by id")
+    @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "186") })
+    public ResponseEntity<BoardDTO> getBoard(@PathVariable Long boardId) {
+        log.info(" #### endpoint getBoard ####");
+        return ResponseEntity.ok(jiraService.getBoard(boardId));
     }
 
-    @GetMapping("/get_mock/params/{param1}/{param2}")
-    @Operation(description = "Prototipo POST Mock.", summary = "PONGA LOS DTO'S que CORRESPONDEN en sus metodos, solo devuelve el DTO que envio a modo ejemplo. Debera crear el Servicio que cubre esta necesidad")
-    @Parameters({@Parameter(name = "param1", description = "Ingrese Nombre"),@Parameter(name = "param2", description = "Ingrese Apellido")})
-    public ResponseEntity<?> get_mock_params(@RequestParam(defaultValue = "Nombre") String param1,@RequestParam(defaultValue = "Apellido") String param2) {
-        // DEMO Construir el objeto JSON  => Consuma del servicio especifico
-        Map<String, String> jsonResponse = new HashMap<>();
-        jsonResponse.put("param1", param1);
-        jsonResponse.put("param2", param2);
-        return ResponseEntity.ok()
-                .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
-                .header("Mensaje-del-servidor", "Esto es un Mockup hasta poder consultar el Servicio REAL.")
-                .body(jsonResponse);
+
+    /** Get board by filter id
+     * Returns any boards which use the provided filter id.
+     * This method can be executed by users without a valid software license in order to find which boards are using a particular filter.*/
+    @GetMapping("/get-board-by-filter/{filterId}")
+    @Operation(description = "Returns any boards which use the provided filter id. This method can be executed by users without a valid software license in order to find which boards are using a particular filter", summary = "Get board by filter id")
+    @Parameters({ @Parameter(name = "filterId", description = " Filter ID", example = "164") })
+    public ResponseEntity<BoardFilterDTO> getBoardByFilter(@PathVariable Long filterId) {
+        log.info(" #### endpoint getBoardByFilter ####");
+        return ResponseEntity.ok(jiraService.getBoardByFilter(filterId));
     }
 
-    @PostMapping("/post_mock")
-    @Operation(description = "Prototipo POST Mock.", summary = "PONGA LOS DTO'S que CORRESPONDEN en sus metodos, solo devuelve el DTO que envio a modo ejemplo. Debera crear el Servicio que cubre esta necesidad")
-    public ResponseEntity<?> post_mock(@RequestBody UserDataDTO dto) {
-        // UserDataDTO user = this.userService.registration(dto); => Consuma del servicio especifico
-        return ResponseEntity.ok()
-                .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
-                .header("Mensaje-del-servidor", "Esto es un Mockup hasta poder consultar el Servicio REAL.")
-                .body(dto);
+
+    /** Get all boards.
+     * This only includes boards that the user has permission to view */
+    @GetMapping("/get-boards")
+    @Operation(description = "Returns all boards. This only includes boards that the user has permission to view", summary = "Get all boards")
+    public ResponseEntity<BoardsDTO> getAllBoards() {
+        log.info(" #### endpoint get-Boards ####");
+        return ResponseEntity.ok(jiraService.getAllBoards());
     }
 
-    @PostMapping("/get_mock/params/{param1}/{param2}")
-    @Operation(description = "Prototipo POST Mock.", summary = "PONGA LOS DTO'S que CORRESPONDEN en sus metodos, solo devuelve el DTO que envio a modo ejemplo. Debera crear el Servicio que cubre esta necesidad")
-    @Parameters({@Parameter(name = "param1", description = "Ingrese Nombre"),@Parameter(name = "param2", description = "Ingrese Apellido")})
-    public ResponseEntity<?> post_mock_params(@RequestParam(defaultValue = "Nombre") String param1,@RequestParam(defaultValue = "Apellido") String param2) {
-        // DEMO Construir el objeto JSON  => Consuma del servicio especifico
-        Map<String, String> jsonResponse = new HashMap<>();
-        jsonResponse.put("param1", param1);
-        jsonResponse.put("param2", param2);
-        return ResponseEntity.ok()
-                .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
-                .header("Mensaje-del-servidor", "Esto es un Mockup hasta poder consultar el Servicio REAL.")
-                .body(jsonResponse);
+
+    /** Get issues for backlog
+     * Returns all issues from the board's backlog, for the given board ID.
+     * This only includes issues that the user has permission to view. By default, the returned issues are ordered by rank.*/
+    @GetMapping("/get-issues-for-backlog/{boardId}")
+    @Operation(description = "Returns all issues from the board's backlog, for the given board ID. This only includes issues that the user has permission to view. By default, the returned issues are ordered by rank.", summary = "Get issues for backlog")
+    @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "186") })
+    public ResponseEntity<BacklogDTO> getIssuesForBacklog(@PathVariable Long boardId) {
+        log.info(" #### endpoint getIssuesForBacklog ####");
+        return ResponseEntity.ok(jiraService.getIssuesForBacklog(boardId));
     }
-    // END Prototipo(EJEMPLO)
+
+
+    /** Get epics
+     * Returns all epics from the board, for the given board ID. This only includes epics that the user has permission to view.
+     * Note, if the user does not have permission to view the board, no epics will be returned at all.  */
+    @GetMapping("/get-epics/{boardId}")
+    @Operation(description = "Returns all epics from the board, for the given board ID. This only includes epics that the user has permission to view. Note, if the user does not have permission to view the board, no epics will be returned at all.", summary = "Get epics for board")
+    @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "186") })
+    public ResponseEntity<EpicsDTO> getEpics(@PathVariable Long boardId) {
+        log.info(" #### endpoint getEpics ####");
+        return ResponseEntity.ok(jiraService.getEpics(boardId));
+    }
+
+
+
+
 }
