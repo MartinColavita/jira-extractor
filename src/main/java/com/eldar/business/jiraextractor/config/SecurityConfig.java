@@ -33,7 +33,7 @@ public class SecurityConfig {
 
     AuthenticationManager authenticationManager;
 
-    // TODO sacar la linea 46, se puso para que no tome el security en este microservicio
+    // TODO sacar de la linea 46 a la 51, se puso para que no tome el security en estos controllers
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
@@ -43,7 +43,12 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/jiraextractor/**").permitAll()
+                        .requestMatchers("/board/**").permitAll()
+                        .requestMatchers("/developmentInformation/**").permitAll()
+                        .requestMatchers("/epic/**").permitAll()
+                        .requestMatchers("/issue/**").permitAll()
+                        .requestMatchers("/securityInformation/**").permitAll()
+                        .requestMatchers("/sprint/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/.well-known/**, ", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/users/create/**").permitAll()
                         .requestMatchers("/auth/login/**").permitAll()

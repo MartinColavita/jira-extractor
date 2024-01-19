@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class ReportsDTO {
     // campos según la estructura de los objetos de "reports"
 }

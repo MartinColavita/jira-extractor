@@ -3,7 +3,7 @@ package com.eldar.business.jiraextractor.api.services.contracts;
 
 import com.eldar.business.jiraextractor.api.models.response.*;
 
-public interface JiraService {
+public interface BoardService {
     BoardDTO getBoard(Long boardId);
     BoardFilterDTO getBoardByFilter(Long boardId);
     BoardsDTO getAllBoards();

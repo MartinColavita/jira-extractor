@@ -2,7 +2,7 @@ package com.eldar.business.jiraextractor.api.controllers;
 
 
 import com.eldar.business.jiraextractor.api.models.response.*;
-import com.eldar.business.jiraextractor.api.services.contracts.JiraService;
+import com.eldar.business.jiraextractor.api.services.contracts.BoardService;
 import com.eldar.business.jiraextractor.utils.swaggerconf.SwaggerResponseCode;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 public class BoardController extends SwaggerResponseCode {
 
-    private final JiraService jiraService;
+    private final BoardService boardService;
 
 
 
@@ -34,7 +34,7 @@ public class BoardController extends SwaggerResponseCode {
     @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "186") })
     public ResponseEntity<BoardDTO> getBoard(@PathVariable Long boardId) {
         log.info(" #### endpoint getBoard ####");
-        return ResponseEntity.ok(jiraService.getBoard(boardId));
+        return ResponseEntity.ok(boardService.getBoard(boardId));
     }
 
 
@@ -46,7 +46,7 @@ public class BoardController extends SwaggerResponseCode {
     @Parameters({ @Parameter(name = "filterId", description = " Filter ID", example = "164") })
     public ResponseEntity<BoardFilterDTO> getBoardByFilter(@PathVariable Long filterId) {
         log.info(" #### endpoint getBoardByFilter ####");
-        return ResponseEntity.ok(jiraService.getBoardByFilter(filterId));
+        return ResponseEntity.ok(boardService.getBoardByFilter(filterId));
     }
 
 
@@ -56,7 +56,7 @@ public class BoardController extends SwaggerResponseCode {
     @Operation(description = "Returns all boards. This only includes boards that the user has permission to view", summary = "Get all boards")
     public ResponseEntity<BoardsDTO> getAllBoards() {
         log.info(" #### endpoint get-Boards ####");
-        return ResponseEntity.ok(jiraService.getAllBoards());
+        return ResponseEntity.ok(boardService.getAllBoards());
     }
 
 
@@ -68,7 +68,7 @@ public class BoardController extends SwaggerResponseCode {
     @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "164") })
     public ResponseEntity<BacklogDTO> getIssuesForBacklog(@PathVariable Long boardId) {
         log.info(" #### endpoint getIssuesForBacklog ####");
-        return ResponseEntity.ok(jiraService.getIssuesForBacklog(boardId));
+        return ResponseEntity.ok(boardService.getIssuesForBacklog(boardId));
     }
 
 
@@ -80,7 +80,7 @@ public class BoardController extends SwaggerResponseCode {
     @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "164") })
     public ResponseEntity<EpicsDTO> getEpics(@PathVariable Long boardId) {
         log.info(" #### endpoint getEpics ####");
-        return ResponseEntity.ok(jiraService.getEpics(boardId));
+        return ResponseEntity.ok(boardService.getEpics(boardId));
     }
 
 
@@ -93,7 +93,7 @@ public class BoardController extends SwaggerResponseCode {
     @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "186") })
     public ResponseEntity<BacklogDTO> getIssuesWithoutEpic(@PathVariable Long boardId) {
         log.info(" #### endpoint getIssuesWithoutEpic ####");
-        return ResponseEntity.ok(jiraService.getIssuesWithoutEpic(boardId));
+        return ResponseEntity.ok(boardService.getIssuesWithoutEpic(boardId));
     }
 
 
@@ -107,7 +107,7 @@ public class BoardController extends SwaggerResponseCode {
             @Parameter(name = "epicId", description = " Epic ID", example = "20386") })
     public ResponseEntity<BacklogDTO> getBoardIssuesForEpic(@PathVariable Long boardId, @PathVariable Long epicId) {
         log.info(" #### endpoint getBoardIssuesForEpic ####");
-        return ResponseEntity.ok(jiraService.getBoardIssuesForEpic(boardId, epicId));
+        return ResponseEntity.ok(boardService.getBoardIssuesForEpic(boardId, epicId));
     }
 
 
@@ -117,7 +117,7 @@ public class BoardController extends SwaggerResponseCode {
     @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "164") })
     public ResponseEntity<FeaturesDTO> getFeatures(@PathVariable Long boardId) {
         log.info(" #### endpoint getFeatureDTOS ####");
-        return ResponseEntity.ok(jiraService.getFeatures(boardId));
+        return ResponseEntity.ok(boardService.getFeatures(boardId));
     }
 
 
@@ -130,7 +130,7 @@ public class BoardController extends SwaggerResponseCode {
     @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "164") })
     public ResponseEntity<BacklogDTO> getIssuesForBoard(@PathVariable Long boardId) {
         log.info(" #### endpoint getIssuesForBoard ####");
-        return ResponseEntity.ok(jiraService.getIssuesForBoard(boardId));
+        return ResponseEntity.ok(boardService.getIssuesForBoard(boardId));
     }
 
 
@@ -145,7 +145,7 @@ public class BoardController extends SwaggerResponseCode {
     @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "164") })
     public ResponseEntity<ProjectsDTO> getProjects(@PathVariable Long boardId) {
         log.info(" #### endpoint getProjects ####");
-        return ResponseEntity.ok(jiraService.getProjects(boardId));
+        return ResponseEntity.ok(boardService.getProjects(boardId));
     }
 
 
@@ -159,7 +159,7 @@ public class BoardController extends SwaggerResponseCode {
     @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "164") })
     public ResponseEntity<ProjectsDTO> getProjectsFull(@PathVariable Long boardId) {
         log.info(" #### endpoint getProjectsFull ####");
-        return ResponseEntity.ok(jiraService.getProjectsFull(boardId));
+        return ResponseEntity.ok(boardService.getProjectsFull(boardId));
     }
 
 
@@ -170,7 +170,7 @@ public class BoardController extends SwaggerResponseCode {
     @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "164") })
     public ResponseEntity<ProjectsFullDTO> getReports(@PathVariable Long boardId) {
         log.info(" #### endpoint getReports ####");
-        return ResponseEntity.ok(jiraService.getReports(boardId));
+        return ResponseEntity.ok(boardService.getReports(boardId));
     }
 
 
@@ -182,7 +182,7 @@ public class BoardController extends SwaggerResponseCode {
     @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "164") })
     public ResponseEntity<SprintsDTO> getSprints(@PathVariable Long boardId) {
         log.info(" #### endpoint getSprints ####");
-        return ResponseEntity.ok(jiraService.getSprints(boardId));
+        return ResponseEntity.ok(boardService.getSprints(boardId));
     }
 
 
@@ -197,7 +197,7 @@ public class BoardController extends SwaggerResponseCode {
             @Parameter(name = "sprintId", description = " Sprint ID", example = "20386") })
     public ResponseEntity<BacklogDTO> getBoardIssuesForSprint(@PathVariable Long boardId, @PathVariable Long sprintId) {
         log.info(" #### endpoint getBoardIssuesForSprint ####");
-        return ResponseEntity.ok(jiraService.getBoardIssuesForSprint(boardId, sprintId));
+        return ResponseEntity.ok(boardService.getBoardIssuesForSprint(boardId, sprintId));
     }
 
 
@@ -211,7 +211,7 @@ public class BoardController extends SwaggerResponseCode {
     @Parameters({ @Parameter(name = "boardId", description = " Board ID", example = "164") })
     public ResponseEntity<VersionsDTO> getVersions(@PathVariable Long boardId) {
         log.info(" #### endpoint getVersions ####");
-        return ResponseEntity.ok(jiraService.getVersions(boardId));
+        return ResponseEntity.ok(boardService.getVersions(boardId));
     }
 
 
