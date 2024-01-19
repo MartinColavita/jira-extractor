@@ -5,17 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
-public class SprintDTO {
+public class Branch {
     private String id;
-    private String self;
-    private String state;
+    private List<String> issueKeys;
+    private Long updateSequenceId;
     private String name;
-    private String startDate;
-    private String endDate;
-    private String completeDate;
-    private String createdDate;
-    private int originBoardId;
-    private String goal;
+    private Commit lastCommit;
+    private String createPullRequestUrl;
+    private String url;
 }

@@ -7,15 +7,10 @@ import lombok.Setter;
 
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
-public class SprintDTO {
-    private String id;
+public class StatusCategoryDTO {
     private String self;
-    private String state;
+    private int id;
+    private String key;
+    private String colorName;
     private String name;
-    private String startDate;
-    private String endDate;
-    private String completeDate;
-    private String createdDate;
-    private int originBoardId;
-    private String goal;
 }

@@ -7,15 +7,12 @@ import lombok.Setter;
 
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
-public class SprintDTO {
-    private String id;
+public class ValueDTO {
     private String self;
-    private String state;
+    private String id;
+    private String key;
     private String name;
-    private String startDate;
-    private String endDate;
-    private String completeDate;
-    private String createdDate;
-    private int originBoardId;
-    private String goal;
+    private String projectTypeKey;
+    private boolean simplified;
+    private AvatarUrlsDTO avatarUrls;
 }

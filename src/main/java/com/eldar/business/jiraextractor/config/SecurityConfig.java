@@ -43,7 +43,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/jiraextractor/get-board/**").permitAll()
+                        .requestMatchers("/jiraextractor/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/.well-known/**, ", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/users/create/**").permitAll()
                         .requestMatchers("/auth/login/**").permitAll()
