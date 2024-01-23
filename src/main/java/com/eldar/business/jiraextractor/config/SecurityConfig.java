@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers("/epic/**").permitAll()
                         .requestMatchers("/issue/**").permitAll()
                         .requestMatchers("/securityInformation/**").permitAll()
+                        .requestMatchers("/user/**").permitAll()
                         .requestMatchers("/sprint/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/.well-known/**, ", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/users/create/**").permitAll()

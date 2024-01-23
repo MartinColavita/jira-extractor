@@ -14,7 +14,7 @@ public class FieldsDTO {
     private boolean flagged;
     private SprintDTO sprint;
     private List<SprintDTO> closedSprints;
-    private String description;
+    private DescriptionDTO description;
     private ProjectDTO project;
     private CommentDTO comment;
     private EpicDTO epic;

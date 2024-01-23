@@ -16,4 +16,5 @@ public class UserDTO {
     private boolean active;
     private String timeZone;
     private String accountType;
+    private String locale;
 }
