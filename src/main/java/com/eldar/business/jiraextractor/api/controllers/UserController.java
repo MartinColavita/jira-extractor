@@ -92,7 +92,7 @@ public class UserController extends SwaggerResponseCode {
             @Parameter(name = "sprint", description = "Jira Sprint", example = "Tablero Sprint 1") })
     public ResponseEntity<BacklogDTO> getTasksPerSprintPerUserPerProject(@PathVariable String user, @PathVariable String project, @PathVariable String sprint) {
         log.info(" #### endpoint getTasksPerSprintPerUserPerProject ####");
-        return ResponseEntity.ok(userService.getTasksPerSprintPerUserPerProject(user, project, sprint));
+        return ResponseEntity.ok(userService.getTasksPerSprintPerUserPerProject(user, sprint, project));
     }
 
 
@@ -105,7 +105,7 @@ public class UserController extends SwaggerResponseCode {
             @Parameter(name = "sprint", description = "Jira Sprint", example = "Tablero Sprint 1") })
     public ResponseEntity<BacklogDTO> getInProgressTasksPerSprintPerUserPerProject(@PathVariable String user, @PathVariable String project, @PathVariable String sprint) {
         log.info(" #### endpoint getInProgressTasksPerSprintPerUserPerProject ####");
-        return ResponseEntity.ok(userService.getInProgressTasksPerSprintPerUserPerProject(user, project, sprint));
+        return ResponseEntity.ok(userService.getInProgressTasksPerSprintPerUserPerProject(user, sprint, project));
     }
 
 
@@ -118,7 +118,7 @@ public class UserController extends SwaggerResponseCode {
             @Parameter(name = "sprint", description = "Jira Sprint", example = "Tablero Sprint 1") })
     public ResponseEntity<BacklogDTO> getCompletedTasksPerSprintPerUserPerProject(@PathVariable String user, @PathVariable String project, @PathVariable String sprint) {
         log.info(" #### endpoint getCompletedTasksPerSprintPerUserPerProject ####");
-        return ResponseEntity.ok(userService.getCompletedTasksPerSprintPerUserPerProject(user, project, sprint));
+        return ResponseEntity.ok(userService.getCompletedTasksPerSprintPerUserPerProject(user, sprint, project));
     }
 
 
@@ -131,7 +131,7 @@ public class UserController extends SwaggerResponseCode {
             @Parameter(name = "sprint", description = "Jira Sprint", example = "Tablero Sprint 1") })
     public ResponseEntity<BacklogDTO> getBlockedTasksPerSprintPerUserPerProject(@PathVariable String user, @PathVariable String project, @PathVariable String sprint) {
         log.info(" #### endpoint getBlockedTasksPerSprintPerUserPerProject ####");
-        return ResponseEntity.ok(userService.getBlockedTasksPerSprintPerUserPerProject(user, project, sprint));
+        return ResponseEntity.ok(userService.getBlockedTasksPerSprintPerUserPerProject(user, sprint, project));
     }
 
 }
