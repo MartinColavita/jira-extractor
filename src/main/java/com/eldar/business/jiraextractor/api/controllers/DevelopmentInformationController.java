@@ -1,3 +1,4 @@
+/*
 package com.eldar.business.jiraextractor.api.controllers;
 
 import com.eldar.business.jiraextractor.api.models.response.RepositoryDTO;
@@ -26,9 +27,11 @@ public class DevelopmentInformationController {
     private final DevelopmentInformationService developmentInformationService;
 
 
-    /** Get repository
+    */
+/** Get repository
      * For the specified repository ID, retrieves the repository and the most recent 400 development information entities.
-     * The result will be what is currently stored, ignoring any pending updates or deletes.*/
+     * The result will be what is currently stored, ignoring any pending updates or deletes.*//*
+
     @GetMapping("/repository/{repositoryId}")
     @Operation(description = "For the specified repository ID, retrieves the repository and the most recent 400 development information entities. The result will be what is currently stored, ignoring any pending updates or deletes.", summary = "Get repository")
     @Parameters({ @Parameter(name = "repositoryId", description = " Repository ID", example = "") })
@@ -38,3 +41,4 @@ public class DevelopmentInformationController {
     }
 
 }
+*/

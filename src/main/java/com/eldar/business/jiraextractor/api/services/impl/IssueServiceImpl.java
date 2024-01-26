@@ -15,7 +15,7 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 
 /** Get issue*/
     @Override
-    public IssueDTO getIssue(Long issueIdOrKey) {
+    public IssueDTO getIssue(String issueIdOrKey) {
         String apiUrl = jiraUrl + "/rest/agile/1.0/issue/" + issueIdOrKey;
         return performGetRequest(apiUrl, IssueDTO.class);
     }
@@ -23,8 +23,8 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 
 /** Get issue estimation for board*/
     @Override
-    public IssueEstimationDTO getIssueEstimationForBoard(Long boardId, Long issueId) {
-        String apiUrl = jiraUrl + "/rest/agile/1.0/issue/" + issueId + "/estimation?boardId=" + boardId;
+    public IssueEstimationDTO getIssueEstimationForBoard(String issueIdOrKey, Long boardId ) {
+        String apiUrl = jiraUrl + "/rest/agile/1.0/issue/" + issueIdOrKey + "/estimation?boardId=" + boardId;
         return performGetRequest(apiUrl, IssueEstimationDTO.class);
     }
 

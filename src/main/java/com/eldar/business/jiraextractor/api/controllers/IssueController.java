@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SecurityRequirement(name = "Bearer Authentication")
-@Slf4j
 @RequiredArgsConstructor
 @Tag(name = "ELDAR - Issue")
 @RequestMapping("/issue")
@@ -33,9 +32,8 @@ public class IssueController extends SwaggerResponseCode {
      * Issues returned from this resource include Agile fields, like sprint, closedSprints, flagged, and epic */
     @GetMapping("/{issueIdOrKey}")
     @Operation(description = "Returns a single issue, for a given issue ID or issue key. Issues returned from this resource include Agile fields, like sprint, closedSprints, flagged, and epic", summary = "Get issue")
-    @Parameters({ @Parameter(name = "issueIdOrKey", description = " Issue ID or Issue Key", example = "164") })
-    public ResponseEntity<IssueDTO> getIssue(@PathVariable Long issueIdOrKey) {
-        log.info(" #### endpoint getIssue ####");
+    @Parameters({ @Parameter(name = "issueIdOrKey", description = " Issue ID or Issue Key", example = "MD-19") })
+    public ResponseEntity<IssueDTO> getIssue(@PathVariable String issueIdOrKey) {
         return ResponseEntity.ok(issueService.getIssue(issueIdOrKey));
     }
 
@@ -45,12 +43,11 @@ public class IssueController extends SwaggerResponseCode {
      boardId param is required. This param determines which field will be updated on a issue.
      Original time internally stores and returns the estimation as a number of seconds.
      The field used for estimation on the given board can be obtained from board configuration resource*/
-    @GetMapping("/{issueIdOrKey}/estimation")
+    @GetMapping("/{issueIdOrKey}/estimation/{boardId}")
     @Operation(description = "Returns the estimation of the issue and a fieldId of the field that is used for it. boardId param is required. This param determines which field will be updated on a issue. Original time internally stores and returns the estimation as a number of seconds. The field used for estimation on the given board can be obtained from board configuration resource", summary = "Get issue estimation for board")
     @Parameters({   @Parameter(name = "issueIdOrKey", description = " Issue ID or Issue Key", example = ""),
             @Parameter(name = "boardId", description = " Board ID", example = "") })
-    public ResponseEntity<IssueEstimationDTO> getIssueEstimationForBoard(@PathVariable Long issueIdOrKey, @PathVariable Long boardId) {
-        log.info(" #### endpoint getIssueEstimationForBoard ####");
+    public ResponseEntity<IssueEstimationDTO> getIssueEstimationForBoard(@PathVariable String issueIdOrKey, @PathVariable Long boardId) {
         return ResponseEntity.ok(issueService.getIssueEstimationForBoard(issueIdOrKey, boardId));
     }
 

@@ -1,3 +1,4 @@
+/*
 package com.eldar.business.jiraextractor.api.controllers;
 
 import com.eldar.business.jiraextractor.api.models.response.VulnerabilityDTO;
@@ -30,11 +31,13 @@ public class SecurityInformationController extends SwaggerResponseCode {
 
 
 
-    /** Get linked Security Workspaces
+    */
+/** Get linked Security Workspaces
      * Retrieve all Security Workspaces linked with the Jira site.
      * The result will be what is currently stored, ignoring any pending updates or deletes.
      * Only Connect apps that define the jiraSecurityInfoProvider module can access this resource.
-     * This resource requires the 'READ' scope for Connect apps.*/
+     * This resource requires the 'READ' scope for Connect apps.*//*
+
     @GetMapping("/linkedWorkspaces")
     @Operation(description = "Retrieve all Security Workspaces linked with the Jira site. The result will be what is currently stored, ignoring any pending updates or deletes.", summary = "Get linked Security Workspaces")
     public ResponseEntity<WorkspacesDTO> getLinkedSecurityWorkspaces() {
@@ -43,10 +46,12 @@ public class SecurityInformationController extends SwaggerResponseCode {
     }
 
 
-    /** Get a linked Security Workspace by ID
+    */
+/** Get a linked Security Workspace by ID
      * Retrieve a specific Security Workspace linked to the Jira site for the given workspace ID.
      * The result will be what is currently stored, ignoring any pending updates or deletes.
-     * Only Connect apps that define the jiraSecurityInfoProvider module can access this resource. This resource requires the 'READ' scope for Connect apps.*/
+     * Only Connect apps that define the jiraSecurityInfoProvider module can access this resource. This resource requires the 'READ' scope for Connect apps.*//*
+
     @GetMapping("/linkedWorkspaces/{workspaceId}")
     @Operation(description = "Retrieve a specific Security Workspace linked to the Jira site for the given workspace ID. The result will be what is currently stored, ignoring any pending updates or deletes.", summary = "Get a linked Security Workspace by ID")
     @Parameters({ @Parameter(name = "workspaceId",  description = "The ID of the workspace to retrieve.") })
@@ -56,10 +61,12 @@ public class SecurityInformationController extends SwaggerResponseCode {
     }
 
 
-    /** Get a Vulnerability by ID
+    */
+/** Get a Vulnerability by ID
      Retrieve the currently stored Vulnerability data for the given ID.
      The result will be what is currently stored, ignoring any pending updates or deletes.
-     Only Connect apps that define the jiraSecurityInfoProvider module can access this resource. This resource requires the 'READ' scope for Connect apps.*/
+     Only Connect apps that define the jiraSecurityInfoProvider module can access this resource. This resource requires the 'READ' scope for Connect apps.*//*
+
     @GetMapping("/vulnerabilities/{vulnerabilityId}")
     @Operation(description = "Retrieve the currently stored Vulnerability data for the given ID. The result will be what is currently stored, ignoring any pending updates or deletes.", summary = "Get a Vulnerability by ID")
     @Parameters({ @Parameter(name = "vulnerabilityId",  description = "The ID of the vulnerability to retrieve.") })
@@ -69,7 +76,5 @@ public class SecurityInformationController extends SwaggerResponseCode {
     }
 
 
-
-
-
 }
+*/

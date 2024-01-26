@@ -4,6 +4,6 @@ import com.eldar.business.jiraextractor.api.models.response.IssueDTO;
 import com.eldar.business.jiraextractor.api.models.response.IssueEstimationDTO;
 
 public interface IssueService {
-    IssueDTO getIssue(Long issueIdOrKey);
-    IssueEstimationDTO getIssueEstimationForBoard(Long boardId, Long issueId);
+    IssueDTO getIssue(String issueIdOrKey);
+    IssueEstimationDTO getIssueEstimationForBoard(String issueIdOrKey, Long boardId);
 }

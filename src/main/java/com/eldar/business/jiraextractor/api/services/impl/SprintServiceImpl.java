@@ -1,5 +1,6 @@
 package com.eldar.business.jiraextractor.api.services.impl;
 
+import com.eldar.business.jiraextractor.api.models.response.BacklogDTO;
 import com.eldar.business.jiraextractor.api.models.response.IssueDTO;
 import com.eldar.business.jiraextractor.api.models.response.SprintDTO;
 import com.eldar.business.jiraextractor.api.services.base.BaseService;
@@ -23,9 +24,9 @@ public class SprintServiceImpl extends BaseService implements SprintService {
 
 /** Get issues for sprint*/
     @Override
-    public IssueDTO getIssuesForSprint(Long sprintId) {
+    public BacklogDTO getIssuesForSprint(Long sprintId) {
         String apiUrl = jiraUrl + "/rest/agile/1.0/sprint/" + sprintId + "/issue";
-        return performGetRequest(apiUrl, IssueDTO.class);
+        return performGetRequest(apiUrl, BacklogDTO.class);
     }
 
 }

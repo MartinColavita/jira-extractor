@@ -24,7 +24,7 @@ public class EpicServiceImpl extends BaseService implements EpicService {
 
     /** Get epic */
     @Override
-    public EpicDTO getEpic(Long epicIdOrKey) {
+    public EpicDTO getEpic(String epicIdOrKey) {
         String apiUrl = jiraUrl + "/rest/agile/1.0/epic/" + epicIdOrKey;
         return performGetRequest(apiUrl, EpicDTO.class);
     }
@@ -32,7 +32,7 @@ public class EpicServiceImpl extends BaseService implements EpicService {
 
     /** Get issues for epic*/
     @Override
-    public BacklogDTO getIssuesForEpic(Long epicIdOrKey) {
+    public BacklogDTO getIssuesForEpic(String epicIdOrKey) {
         String apiUrl = jiraUrl + "/rest/agile/1.0/epic/" + epicIdOrKey + "/issue";
         return performGetRequest(apiUrl, BacklogDTO.class);
     }

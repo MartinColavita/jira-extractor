@@ -5,6 +5,6 @@ import com.eldar.business.jiraextractor.api.models.response.EpicDTO;
 
 public interface EpicService {
     BacklogDTO getIssuesWithoutEpic();
-    EpicDTO getEpic(Long epicIdOrKey);
-    BacklogDTO getIssuesForEpic(Long epicIdOrKey);
+    EpicDTO getEpic(String epicIdOrKey);
+    BacklogDTO getIssuesForEpic(String epicIdOrKey);
 }

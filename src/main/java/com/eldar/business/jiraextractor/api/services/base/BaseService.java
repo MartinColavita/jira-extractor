@@ -52,10 +52,7 @@ public abstract class BaseService {
     protected <T> T performGetRequest(String apiUrl, Class<T> responseType) {
         try {
             HttpHeaders headers = createHeaders();
-            log.info("----> headers: {}", headers);
-            log.info("----> apiUrl: {}", apiUrl);
             ResponseEntity<T> response = restTemplateConfig.restTemplate().exchange(apiUrl, HttpMethod.GET, new HttpEntity<>(headers), responseType);
-            log.info("----> response: {}", response);
             if (!response.getStatusCode().is2xxSuccessful()) {
                 log.info("----> Error response: {}", response.getStatusCode());
                 throw new BadRequestException("Error making request to Jira".split(","));
@@ -80,10 +77,7 @@ public abstract class BaseService {
     protected <T> T performGetRequest(String apiUrl, ParameterizedTypeReference<T> responseType) {
         try {
             HttpHeaders headers = createHeaders();
-            log.info("----> headers: {}", headers);
-            log.info("----> apiUrl: {}", apiUrl);
             ResponseEntity<T> response = restTemplateConfig.restTemplate().exchange(apiUrl, HttpMethod.GET, new HttpEntity<>(headers), responseType);
-            log.info("----> response: {}", response);
             if (!response.getStatusCode().is2xxSuccessful()) {
                 log.info("----> Respuesta de error: {}", response.getStatusCode());
                 throw new BadRequestException("Error al realizar la solicitud a Jira".split(","));

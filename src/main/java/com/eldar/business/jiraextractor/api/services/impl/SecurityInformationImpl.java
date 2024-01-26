@@ -1,3 +1,4 @@
+/*
 package com.eldar.business.jiraextractor.api.services.impl;
 
 import com.eldar.business.jiraextractor.api.models.response.VulnerabilityDTO;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityInformationImpl extends BaseService implements SecurityInformationService {
 
-/** Get linked Security Workspaces*/
+*/
+/** Get linked Security Workspaces*//*
+
     @Override
     public WorkspacesDTO getLinkedSecurityWorkspaces() {
         String apiUrl = jiraUrl + "/rest/security/1.0/linkedWorkspaces";
@@ -22,7 +25,9 @@ public class SecurityInformationImpl extends BaseService implements SecurityInfo
     }
 
 
-/** Get a linked Security Workspace by ID*/
+*/
+/** Get a linked Security Workspace by ID*//*
+
     @Override
     public WorkspaceDTO getLinkedSecurityWorkspaces(Long workspaceId) {
         String apiUrl = jiraUrl + "/rest/security/1.0/linkedWorkspaces/" + workspaceId;
@@ -30,7 +35,9 @@ public class SecurityInformationImpl extends BaseService implements SecurityInfo
     }
 
 
-/** Get a Vulnerability by ID*/
+*/
+/** Get a Vulnerability by ID*//*
+
     @Override
     public VulnerabilityDTO getVulnerability(Long vulnerabilityId) {
         String apiUrl = jiraUrl + "/rest/security/1.0/vulnerabilities/" + vulnerabilityId;
@@ -38,3 +45,4 @@ public class SecurityInformationImpl extends BaseService implements SecurityInfo
     }
 
 }
+*/

@@ -22,7 +22,6 @@ import java.util.List;
 
 
 @SecurityRequirement(name = "Bearer Authentication")
-@Slf4j
 @RequiredArgsConstructor
 @Tag(name = "ELDAR - User")
 @RequestMapping("/user")
@@ -36,7 +35,6 @@ public class UserController extends SwaggerResponseCode {
     @GetMapping("/all")
     @Operation(summary = "All active jira users", description = "All active jira users")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
-        log.info(" #### endpoint getAllUsers ####");
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
@@ -46,7 +44,6 @@ public class UserController extends SwaggerResponseCode {
     @Operation(summary = "All Tasks ASSIGNED Per user", description = "All Tasks ASSIGNED Per user")
     @Parameters({@Parameter(name = "user", description = "Jira User", example = "Martin Colavita")})
     public ResponseEntity<BacklogDTO> getAllTasksPerUser(@PathVariable String user) {
-        log.info(" #### endpoint getAllTasksPerUser ####");
         return ResponseEntity.ok(userService.getAllTasksPerUser(user));
     }
 
@@ -56,7 +53,6 @@ public class UserController extends SwaggerResponseCode {
     @Operation(summary = "All ONGOING Tasks For a specific User", description = "All ONGOING Tasks For a specific User")
     @Parameters({@Parameter(name = "user", description = "Jira User", example = "Martin Colavita")})
     public ResponseEntity<BacklogDTO> getAllOngoingTasksPerUser(@PathVariable String user) {
-        log.info(" #### endpoint getAllOngoingTasksPerUser ####");
         return ResponseEntity.ok(userService.getAllOngoingTasksPerUser(user));
     }
 
@@ -66,7 +62,6 @@ public class UserController extends SwaggerResponseCode {
     @Operation(summary = "All tasks LOCKED to a specific user", description = "All tasks LOCKED to a specific user")
     @Parameters({@Parameter(name = "user", description = "Jira User", example = "Martin Colavita") })
     public ResponseEntity<BacklogDTO> getAllLockedTasksPerUser(@PathVariable String user) {
-        log.info(" #### endpoint getAllLockedTasksPerUser ####");
         return ResponseEntity.ok(userService.getAllLockedTasksPerUser(user));
     }
 
@@ -78,7 +73,6 @@ public class UserController extends SwaggerResponseCode {
             @Parameter(name = "user", description = "Jira User", example = "Martin Colavita"),
             @Parameter(name = "sprint", description = "Jira Sprint", example = "Tablero Sprint 1") })
     public ResponseEntity<BacklogDTO> getTasksPerSprintPerUser(@PathVariable String user, @PathVariable String sprint) {
-        log.info(" #### endpoint getTasksPerSprintPerUser ####");
         return ResponseEntity.ok(userService.getTasksPerSprintPerUser(user, sprint));
     }
 
@@ -91,7 +85,6 @@ public class UserController extends SwaggerResponseCode {
             @Parameter(name = "project", description = "Jira Project", example = "EJE"),
             @Parameter(name = "sprint", description = "Jira Sprint", example = "Tablero Sprint 1") })
     public ResponseEntity<BacklogDTO> getTasksPerSprintPerUserPerProject(@PathVariable String user, @PathVariable String project, @PathVariable String sprint) {
-        log.info(" #### endpoint getTasksPerSprintPerUserPerProject ####");
         return ResponseEntity.ok(userService.getTasksPerSprintPerUserPerProject(user, sprint, project));
     }
 
@@ -104,7 +97,6 @@ public class UserController extends SwaggerResponseCode {
             @Parameter(name = "project", description = "Jira Project", example = "EJE"),
             @Parameter(name = "sprint", description = "Jira Sprint", example = "Tablero Sprint 1") })
     public ResponseEntity<BacklogDTO> getInProgressTasksPerSprintPerUserPerProject(@PathVariable String user, @PathVariable String project, @PathVariable String sprint) {
-        log.info(" #### endpoint getInProgressTasksPerSprintPerUserPerProject ####");
         return ResponseEntity.ok(userService.getInProgressTasksPerSprintPerUserPerProject(user, sprint, project));
     }
 
@@ -117,7 +109,6 @@ public class UserController extends SwaggerResponseCode {
             @Parameter(name = "project", description = "Jira Project", example = "EJE"),
             @Parameter(name = "sprint", description = "Jira Sprint", example = "Tablero Sprint 1") })
     public ResponseEntity<BacklogDTO> getCompletedTasksPerSprintPerUserPerProject(@PathVariable String user, @PathVariable String project, @PathVariable String sprint) {
-        log.info(" #### endpoint getCompletedTasksPerSprintPerUserPerProject ####");
         return ResponseEntity.ok(userService.getCompletedTasksPerSprintPerUserPerProject(user, sprint, project));
     }
 
@@ -130,7 +121,6 @@ public class UserController extends SwaggerResponseCode {
             @Parameter(name = "project", description = "Jira Project", example = "EJE"),
             @Parameter(name = "sprint", description = "Jira Sprint", example = "Tablero Sprint 1") })
     public ResponseEntity<BacklogDTO> getBlockedTasksPerSprintPerUserPerProject(@PathVariable String user, @PathVariable String project, @PathVariable String sprint) {
-        log.info(" #### endpoint getBlockedTasksPerSprintPerUserPerProject ####");
         return ResponseEntity.ok(userService.getBlockedTasksPerSprintPerUserPerProject(user, sprint, project));
     }
 

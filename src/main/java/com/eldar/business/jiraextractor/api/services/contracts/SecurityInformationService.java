@@ -1,3 +1,4 @@
+/*
 package com.eldar.business.jiraextractor.api.services.contracts;
 
 
@@ -10,3 +11,4 @@ public interface SecurityInformationService {
     WorkspaceDTO getLinkedSecurityWorkspaces(Long workspaceId);
     VulnerabilityDTO getVulnerability(Long vulnerabilityId);
 }
+*/

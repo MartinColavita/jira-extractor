@@ -1,3 +1,4 @@
+/*
 package com.eldar.business.jiraextractor.api.services.impl;
 
 
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class DevelopmentInformationServiceImpl extends BaseService implements DevelopmentInformationService {
 
-    /** Get repository*/
+    */
+/** Get repository*//*
+
     @Override
     public RepositoryDTO getRepository(Long repositoryId) {
         String apiUrl = jiraUrl + "/rest/devinfo/0.10/repository/" + repositoryId;
@@ -21,3 +24,4 @@ public class DevelopmentInformationServiceImpl extends BaseService implements De
     }
 
 }
+*/
